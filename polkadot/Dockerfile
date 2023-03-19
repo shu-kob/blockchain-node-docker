@@ -46,4 +46,4 @@ RUN cargo build --release
 
 EXPOSE 9933 9944
 
-CMD ["polkadot"]
+CMD ["/src/target/release/polkadot"]

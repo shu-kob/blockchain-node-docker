@@ -1,5 +1,8 @@
-FROM debian:stretch-slim as builder
+FROM ubuntu:20.04
 ARG COIND_VERSION
+RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
+
+ENV TZ=Asia/Tokyo
 
 RUN apt-get update -y \
     && apt-get install -y \
@@ -19,6 +22,7 @@ RUN apt-get update -y \
         autotools-dev \
         bsdmainutils \
         git \
+        libfmt-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -36,7 +40,7 @@ RUN V=1 make -j2
 
 RUN make install
 
-ENV BITCOIN_DATA=/root/.dogecoin
+ENV BITCOIN_DATA=/root/.bitcoin
 
 RUN mkdir -p ${BITCOIN_DATA}
 

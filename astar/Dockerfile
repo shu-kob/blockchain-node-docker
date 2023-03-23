@@ -32,11 +32,7 @@ ENV PATH $PATH:$CARGO_HOME/bin
 
 RUN curl https://getsubstrate.io -sSf | bash -s -- --fast
 
-RUN git clone https://github.com/AstarNetwork/Astar /src
-
-WORKDIR /src
-
-RUN git checkout ${VERSION}
+RUN git clone https://github.com/AstarNetwork/Astar --branch ${VERSION} /src
 
 WORKDIR /src
 

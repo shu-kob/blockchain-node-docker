@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   monacoind:
-    image: monacoin:v0.20.3
+    image: monacoin:${IMAGE_TAG__MONACOIN:-latest}
     volumes:
       - ~/.monacoin:/root/.monacoin
     restart: on-failure

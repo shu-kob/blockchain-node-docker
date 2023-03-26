@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  monacoind:
+    image: monacoin:${IMAGE_TAG__MONACOIN:-latest}
+    volumes:
+      - ~/.monacoin:/root/.monacoin
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "9402:9402"
+      - "9403:9403"

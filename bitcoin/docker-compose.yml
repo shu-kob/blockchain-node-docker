@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  bitcoind:
+    image: bitcoin:${IMAGE_TAG__BITCOIN:-latest}
+    volumes:
+      - ~/.bitcoin:/root/.bitcoin
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "8332:8333"
+      - "8333:8333"

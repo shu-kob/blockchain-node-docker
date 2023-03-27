@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  litecoind:
+    image: litecoin:${IMAGE_TAG__LITECOIN:-latest}
+    volumes:
+      - ~/.litecoin:/root/.litecoin
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "9332:9332"
+      - "9333:9333"

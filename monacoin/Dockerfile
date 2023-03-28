@@ -20,7 +20,6 @@ RUN apt-get update -y \
         libboost-program-options-dev \
         libboost-thread-dev \
         autotools-dev \
-        bsdmainutils \
         git \
         libfmt-dev \
         libdb5.3++-dev \

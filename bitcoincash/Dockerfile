@@ -23,9 +23,11 @@ RUN apt-get update -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone  https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node --branch ${COIND_VERSION} /src
+RUN git clone  https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node /src
 
 WORKDIR /src
+
+RUN git checkout ${COIND_VERSION}
 
 RUN mkdir build
 

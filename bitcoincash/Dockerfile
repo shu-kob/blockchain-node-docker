@@ -37,6 +37,8 @@ RUN cmake -GNinja .. -DBUILD_BITCOIN_WALLET=OFF -DBUILD_BITCOIN_QT=OFF
 
 RUN ninja
 
+RUN ninja install
+
 ENV BITCOINCASH_DATA=/root/.bitcoin
 
 RUN mkdir -p ${BITCOINCASH_DATA}

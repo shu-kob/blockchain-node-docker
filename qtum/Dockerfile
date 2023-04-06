@@ -29,17 +29,15 @@ RUN apt-get update -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/qtumproject/qtum /src
+RUN git clone https://github.com/qtumproject/qtum --recursive /src
 
 WORKDIR /src
 
 RUN git checkout ${COIND_VERSION}
 
-RUN make -j2 -C depends/
-
 RUN ./autogen.sh
 
-RUN ./configure --disable-wallet --disable-tests --disable-bench --without-gui --prefix="/src/depends/x86_64-pc-linux-gnu"
+RUN ./configure --disable-wallet --disable-tests --disable-bench --without-gui
 
 RUN V=1 make clean
 

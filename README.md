@@ -10,7 +10,7 @@ $ ./build.sh v24.0.1
 $ docker-compose up
 ```
 
-### For example bitcoin
+### For example litecoin
 
 ```
 $ cd litecoin

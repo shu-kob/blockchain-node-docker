@@ -2,7 +2,9 @@
 
 ## How to Use
 
-### For example bitcoin
+### For example
+
+#### How to build bitcoin Docker Image
 
 ```
 $ cd bitcoin
@@ -10,7 +12,9 @@ $ ./build.sh v24.0.1
 $ docker-compose up
 ```
 
-### For example litecoin
+### For example
+
+#### How to build litecoin Docker Image
 
 ```
 $ cd litecoin

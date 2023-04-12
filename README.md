@@ -9,6 +9,11 @@
 ```
 $ cd bitcoin
 $ ./build.sh v24.0.1
+```
+
+##### Run Bitcoind Docker
+
+```
 $ docker-compose up
 ```
 
@@ -19,5 +24,10 @@ $ docker-compose up
 ```
 $ cd litecoin
 $ ./build.sh v0.21.2.2
+```
+
+##### Run Litecoind Docker
+
+```
 $ docker-compose up
 ```

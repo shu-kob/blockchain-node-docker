@@ -26,9 +26,11 @@ RUN apt-get update -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/litecoin-project/litecoin --branch ${COIND_VERSION} /src
+RUN git clone https://github.com/litecoin-project/litecoin /src
 
 WORKDIR /src
+
+RUN git checkout ${VERSION}
 
 RUN ./autogen.sh
 

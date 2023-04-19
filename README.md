@@ -31,3 +31,12 @@ $ ./build.sh v0.21.2.2
 ```
 $ docker-compose up
 ```
+
+### For example
+
+#### How to build polkadot Docker Image
+
+```
+$ cd polkadot
+$ ./build.sh v0.9.41
+```

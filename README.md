@@ -36,3 +36,10 @@ $ docker-compose up
 $ cd polkadot
 $ ./build.sh v0.9.41
 ```
+
+#### How to build astar Docker Image
+
+```
+$ cd astar
+$ ./build.sh v5.4.0
+```

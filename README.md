@@ -4,6 +4,23 @@
 
 ### For example
 
+#### How to build bitcoin cash node Docker Image
+
+```
+$ cd bitcoincash
+$ ./build.sh v26.0.0
+```
+
+##### Run Bitcoind Docker
+
+```
+$ docker-compose up
+```
+
+## How to Use
+
+### For example
+
 #### How to build bitcoin Docker Image
 
 ```

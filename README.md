@@ -37,6 +37,18 @@ $ ./build.sh v0.21.2.2
 $ cd monacoin
 $ ./build.sh v0.20.3
 ```
+#### How to build qtum Docker Image
+
+```
+$ cd qtum
+$ ./build.sh v21.3
+```
+#### How to build monacoin Docker Image
+
+```
+$ cd monacoin
+$ ./build.sh v0.20.3
+```
 
 #### How to build polkadot Docker Image
 

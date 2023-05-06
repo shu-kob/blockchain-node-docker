@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM golang:1.19
 
 ARG BLOCKCHAIN_NODE_VERSION
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
@@ -18,12 +18,6 @@ RUN apt-get update -y \
         make \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN wget https://dl.google.com/go/go1.20.4.linux-amd64.tar.gz
-
-RUN tar -C /usr/local -xzf go1.20.4.linux-amd64.tar.gz
-
-ENV PATH=/usr/local/go/bin:$PATH
 
 RUN git clone https://github.com/ethereum/go-ethereum /src
 

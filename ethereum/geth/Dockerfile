@@ -31,6 +31,6 @@ ENV GETH_DATA=/root/.ethereum/geth
 
 RUN mkdir -p ${GETH_DATA}
 
-EXPOSE 8545 30303
+EXPOSE 8545 8551 30303
 
 CMD ["/src/build/bin/geth"]

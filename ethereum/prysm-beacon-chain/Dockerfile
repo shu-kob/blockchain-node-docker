@@ -1,44 +1,46 @@
-FROM golang:1.19
+FROM ubuntu:20.04
 
 ARG BLOCKCHAIN_NODE_VERSION
+
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=Asia/Tokyo
 
 RUN apt-get update -y \
+    && apt-get upgrade -y \
     && apt-get install -y \
-        jq \
-        tmux \
         git \
         wget \
-        awscli \
         g++ \
-        bc \
-        python3 \
-        make \
-        cmake \
-        libssl-dev \
-        libgmp-dev \
-        libtinfo5 \
-        apt-transport-https \
-        curl \
-        gnupg \
-        python3-pip \
+        unzip \
+        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
+WORKDIR /usr/bin
+
+RUN wget https://github.com/bazelbuild/bazel/releases/download/5.4.0/bazel-5.4.0-installer-linux-x86_64.sh
+
+RUN chmod +x bazel-5.4.0-installer-linux-x86_64.sh
+
+RUN ./bazel-5.4.0-installer-linux-x86_64.sh --user
+
+ENV PATH="$PATH:$HOME/bin"
+
+RUN ln -s bazel-5.4.0 bazel
+
+RUN git clone https://github.com/prysmaticlabs/prysm /src
 
 WORKDIR /src
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
-RUN make
+RUN bazel build //beacon-chain:beacon-chain --config=release
 
-ENV GETH_DATA=/root/.ethereum/geth
+ENV PRYSM_BEACON_DATA=/root/.ethereum/prysm
 
-RUN mkdir -p ${GETH_DATA}
+RUN mkdir -p ${PRYSM_BEACON_DATA}
 
-EXPOSE 8545 30303
+EXPOSE 8551 30303
 
-CMD ["/src/build/bin/geth"]
+CMD ["bazel run //beacon-chain --config=release"]

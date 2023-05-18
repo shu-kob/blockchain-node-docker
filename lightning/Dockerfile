@@ -2,10 +2,30 @@ FROM ubuntu:20.04
 
 ARG BLOCKCHAIN_NODE_VERSION
 
-RUN apt-get update -y && apt install -y wget xz-utils
-RUN wget https://github.com/ElementsProject/lightning/releases/download/${BLOCKCHAIN_NODE_VERSION}/clightning-${BLOCKCHAIN_NODE_VERSION}-Ubuntu-20.04.tar.xz
-RUN tar -xvf clightning-${BLOCKCHAIN_NODE_VERSION}-Ubuntu-20.04.tar.xz
-RUN chmod +x /usr/bin/lightning*
+RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
+
+ENV TZ=Asia/Tokyo
+
+RUN apt-get update \
+    && apt-get install -y \
+      autoconf automake build-essential git libtool libgmp-dev libsqlite3-dev \
+      python3 python3-pip net-tools zlib1g-dev libsodium-dev gettext \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN pip3 install --upgrade pip
+RUN pip3 install --user poetry
+
+RUN git clone https://github.com/ElementsProject/lightning.git /src
+
+WORKDIR /src
+
+RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
+
+RUN pip3 install --upgrade pip
+RUN pip3 install mako
+RUN ./configure
+RUN make
+RUN make install
 
 ENV LIGHTNING_DATA=/root/.lightning
 

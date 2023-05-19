@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-ARG COIND_VERSION
+ARG BLOCKCHAIN_NODE_VERSION
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=Asia/Tokyo
@@ -33,7 +33,7 @@ RUN git clone https://github.com/qtumproject/qtum --recursive /src
 
 WORKDIR /src
 
-RUN git checkout ${COIND_VERSION}
+RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
 RUN ./autogen.sh
 

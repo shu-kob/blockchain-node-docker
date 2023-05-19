@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-ARG VERSION
+ARG BLOCKCHAIN_NODE_VERSION
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=Asia/Tokyo 
@@ -36,7 +36,7 @@ RUN git clone https://github.com/AstarNetwork/Astar /src
 
 WORKDIR /src
 
-RUN git checkout ${VERSION}
+RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
 RUN cargo build --release
 

@@ -8,7 +8,7 @@
 
 ```
 $ cd bitcoin
-$ ./build.sh v24.0.1
+$ ./build.sh v24.1
 ```
 
 ##### Run Bitcoind Docker

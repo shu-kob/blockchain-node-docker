@@ -22,7 +22,9 @@ WORKDIR $GOPATH/src/github.com/maticnetwork/bor
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
-RUN make
+RUN make bor
+
+RUN make all
 
 ENV GETH_DATA=/root/.polygon/bor
 

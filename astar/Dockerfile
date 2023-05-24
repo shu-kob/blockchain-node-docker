@@ -30,8 +30,6 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rus
     && ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path
 ENV PATH $PATH:$CARGO_HOME/bin
 
-RUN curl https://getsubstrate.io -sSf | bash -s -- --fast
-
 RUN git clone https://github.com/AstarNetwork/Astar /src
 
 WORKDIR /src

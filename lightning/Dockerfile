@@ -4,7 +4,7 @@ ARG BLOCKCHAIN_NODE_VERSION
 
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
-ENV TZ=Asia/Tokyo
+ENV TZ=UTC
 
 RUN apt-get update \
     && apt-get install -y \

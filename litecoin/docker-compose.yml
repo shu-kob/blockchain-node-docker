@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   litecoind:
-    image: litecoin:${IMAGE_TAG__LITECOIN:-latest}
+    image: litecoin:v0.21.2.2
     volumes:
       - ~/.litecoin:/root/.litecoin
     restart: on-failure

@@ -1,5 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as builder
+
 ARG BLOCKCHAIN_NODE_VERSION
+
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=UTC
@@ -22,13 +24,11 @@ RUN apt-get update -y \
         autotools-dev \
         git \
         libfmt-dev \
-        libdb5.3++-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        libdb5.3++-dev
 
-RUN git clone https://github.com/litecoin-project/litecoin /src
+RUN git clone https://github.com/litecoin-project/litecoin.git /workspace
 
-WORKDIR /src
+WORKDIR /workspace
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
@@ -42,10 +42,27 @@ RUN V=1 make -j2
 
 RUN make install
 
+FROM ubuntu:20.04
+
+RUN apt-get update -y \
+    && apt-get install -y \
+        libtool \
+        libssl-dev \
+        libevent-dev \
+        libboost-dev \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-program-options-dev \
+        libboost-thread-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=builder "/usr/local/bin" /usr/local/bin
+
 ENV LITECOIN_DATA=/root/.litecoin
 
 RUN mkdir -p ${LITECOIN_DATA}
 
-EXPOSE 9332 9333 19332 19335 19443 19444
+EXPOSE 9332 9333
 
 CMD ["litecoind", "-txindex"]

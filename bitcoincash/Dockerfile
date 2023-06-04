@@ -51,6 +51,8 @@ RUN apt-get update -y \
         libboost-filesystem-dev \
         libboost-program-options-dev \
         libboost-thread-dev \
+        libminiupnpc-dev \
+        libzmq3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

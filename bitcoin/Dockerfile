@@ -1,5 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as builder
+
 ARG BLOCKCHAIN_NODE_VERSION
+
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=UTC
@@ -21,13 +23,11 @@ RUN apt-get update -y \
         libboost-thread-dev \
         autotools-dev \
         git \
-        libfmt-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        libfmt-dev
 
-RUN git clone https://github.com/bitcoin/bitcoin.git /src
+RUN git clone https://github.com/bitcoin/bitcoin.git /workspace
 
-WORKDIR /src
+WORKDIR /workspace
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
@@ -41,10 +41,27 @@ RUN V=1 make -j2
 
 RUN make install
 
+FROM ubuntu:20.04
+
+RUN apt-get update -y \
+    && apt-get install -y \
+        libtool \
+        libssl-dev \
+        libevent-dev \
+        libboost-dev \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-program-options-dev \
+        libboost-thread-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=builder "/usr/local/bin" /usr/local/bin
+
 ENV BITCOIN_DATA=/root/.bitcoin
 
 RUN mkdir -p ${BITCOIN_DATA}
 
-EXPOSE 8332 8333 18332 18333 18443 18444 38332 38333
+EXPOSE 8332 8333 18332 18333
 
 CMD ["bitcoind", "-txindex"]

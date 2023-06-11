@@ -1,5 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as builder
+
 ARG BLOCKCHAIN_NODE_VERSION
+
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
 
 ENV TZ=UTC
@@ -25,13 +27,11 @@ RUN apt-get update -y \
         libfmt-dev \
         libgmp3-dev \
         bison \
-        python3 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        python3
 
-RUN git clone https://github.com/qtumproject/qtum --recursive /src
+RUN git clone https://github.com/qtumproject/qtum.git --recursive /workspace
 
-WORKDIR /src
+WORKDIR /workspace
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
@@ -44,6 +44,24 @@ RUN V=1 make clean
 RUN V=1 make -j2
 
 RUN make install
+
+FROM ubuntu:20.04
+
+RUN apt-get update -y \
+    && apt-get install -y \
+        libtool \
+        libssl-dev \
+        libevent-dev \
+        libboost-dev \
+        libboost-system-dev \
+        libboost-filesystem-dev \
+        libboost-program-options-dev \
+        libboost-thread-dev \
+        libgmp3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=builder "/usr/local/bin" /usr/local/bin
 
 ENV QTUM_DATA=/root/.qtum
 

@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  astar:
+    image: astar:${IMAGE_TAG__ASTAR:-latest}
+    volumes:
+      - ~/.astar:/root/.astar
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "9933:9933"
+      - "9944:9944"
+    command: astar-collator --chain ${CHAIN_NAME:-astar}

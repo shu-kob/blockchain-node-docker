@@ -1,8 +1,6 @@
-FROM ubuntu:20.04
-ARG BLOCKCHAIN_NODE_VERSION
-RUN rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y tzdata
+FROM rust:1.69.0 as builder
 
-ENV TZ=UTC
+ARG BLOCKCHAIN_NODE_VERSION
 
 RUN apt-get update -y \
     && apt-get install -y \
@@ -16,28 +14,23 @@ RUN apt-get update -y \
         cmake \
         protobuf-compiler \
         git \
-        curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+        curl
 
-ENV RUST_HOME /usr/local/lib/rust
-ENV RUSTUP_HOME ${RUST_HOME}/rustup
-ENV CARGO_HOME ${RUST_HOME}/cargo
-RUN mkdir /usr/local/lib/rust && \
-    chmod 0755 $RUST_HOME
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > ${RUST_HOME}/rustup.sh \
-    && chmod +x ${RUST_HOME}/rustup.sh \
-    && ${RUST_HOME}/rustup.sh -y --default-toolchain nightly --no-modify-path
-ENV PATH $PATH:$CARGO_HOME/bin
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+    sh -s -- -y --default-toolchain nightly --no-modify-path
 
-RUN git clone https://github.com/AstarNetwork/Astar /src
+RUN git clone https://github.com/AstarNetwork/Astar.git /workspace
 
-WORKDIR /src
+WORKDIR /workspace
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
 RUN cargo build --release
 
+FROM rust:1.69.0
+
+COPY --from=builder "/workspace/target/release/astar-collator" /usr/local/bin
+
 EXPOSE 9933 9944
 
-CMD ["/src/target/release/astar-collator"]
+CMD ["astar-collator", "--chain", "astar"]

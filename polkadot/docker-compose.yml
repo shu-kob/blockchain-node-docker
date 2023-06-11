@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   polkadot:
-    image: polkadot:v0.9.42
+    image: polkadot:${IMAGE_TAG__POLKADOT:-latest}
     volumes:
       - ~/.polkadot:/root/.polkadot
     restart: on-failure

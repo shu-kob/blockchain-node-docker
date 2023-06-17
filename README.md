@@ -48,7 +48,7 @@ $ ./build.sh v21.3
 
 ```
 $ cd polkadot
-$ ./build.sh v0.9.4
+$ ./build.sh v0.9.43
 ```
 
 #### How to build astar Docker Image

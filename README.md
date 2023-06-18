@@ -21,7 +21,7 @@ $ docker-compose up
 
 ```
 $ cd bitcoincash
-$ ./build.sh v26.0.0
+$ ./build.sh v26.1.0
 ```
 
 #### How to build litecoin Docker Image

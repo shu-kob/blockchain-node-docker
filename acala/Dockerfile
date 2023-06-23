@@ -14,12 +14,14 @@ RUN apt-get update -y \
         cmake \
         protobuf-compiler \
         git \
-        curl
+        curl \
+        llvm \
+        libudev-dev
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
     sh -s -- -y --default-toolchain nightly --no-modify-path
 
-RUN git clone https://github.com/AcalaNetwork/Acala.git /workspace
+RUN git clone https://github.com/AcalaNetwork/Acala.git --recursive /workspace
 
 WORKDIR /workspace
 

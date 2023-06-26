@@ -55,5 +55,5 @@ $ ./build.sh v0.9.42-rc7
 
 ```
 $ cd astar
-$ ./build.sh v5.10.0
+$ ./build.sh v5.11.0
 ```

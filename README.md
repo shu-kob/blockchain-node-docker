@@ -2,6 +2,11 @@
 
 ## How to Use
 
+```
+$ git clone https://github.com/shu-kob/blockchain-node-docker
+cd blockchain-node-docker
+```
+
 ### For example
 
 #### How to build bitcoin Docker Image

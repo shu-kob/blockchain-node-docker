@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  prysm:
+    image: prysm:${IMAGE_TAG__GETH:-latest}
+    volumes:
+      - ~/.ethereum/prysm:/root/.ethereum/prysm
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "8551:8551"
+      - "30303:30303"

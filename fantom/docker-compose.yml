@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+  opera:
+    image: fantom:${IMAGE_TAG__BLOCKCHAIN_NODE:-latest}
+    volumes:
+      - ~/.fantom:/root/.fantom
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "5050:5050"
+      - "8080:8080"
+    command: >
+      opera --cache 3975 --genesis /root/.fantom/mainnet-109331-no-history.g --syncmode snap --nousb --db.preset ldb-1

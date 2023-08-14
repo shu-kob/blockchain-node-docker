@@ -1,4 +1,4 @@
-FROM gcr.io/bazel-public/bazel:5.4.0
+FROM gcr.io/bazel-public/bazel:6.3.2
 
 ARG BLOCKCHAIN_NODE_VERSION
 
@@ -8,9 +8,9 @@ WORKDIR prysm
 
 RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
-RUN bazel build //beacon-chain:beacon-chain --config=release
+RUN bazel build //cmd/beacon-chain:beacon-chain --config=release
 
-ENV PRYSM_BEACON_DATA=/root/.ethereum/prysm
+ENV PRYSM_BEACON_DATA=/root/.eth2
 
 RUN mkdir -p ${PRYSM_BEACON_DATA}
 

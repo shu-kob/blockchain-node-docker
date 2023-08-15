@@ -53,14 +53,14 @@ $ ./build.sh v21.3
 
 ```
 $ cd polkadot
-$ ./build.sh v0.9.42-rc7
+$ ./build.sh v1.0.0
 ```
 
 #### How to build astar Docker Image
 
 ```
 $ cd astar
-$ ./build.sh v5.11.0
+$ ./build.sh v5.17.0
 ```
 
 #### How to build fantom Docker Image

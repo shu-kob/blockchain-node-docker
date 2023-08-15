@@ -62,3 +62,10 @@ $ ./build.sh v0.9.42-rc7
 $ cd astar
 $ ./build.sh v5.11.0
 ```
+
+#### How to build fantom Docker Image
+
+```
+$ cd fantom
+$ ./build.sh v1.1.2-rc.6
+```

@@ -28,9 +28,9 @@ FROM golang:1.19
 
 COPY --from=builder "/workspace/build/bin/geth" /usr/local/bin
 
-ENV GETH_DATA=/root/.ethereum
+ENV DATA_DIR=/root/.ethereum
 
-RUN mkdir -p ${GETH_DATA}
+RUN mkdir -p ${DATA_DIR}
 
 EXPOSE 8545 8551 30303
 

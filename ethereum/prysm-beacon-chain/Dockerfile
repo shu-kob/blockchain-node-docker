@@ -10,9 +10,9 @@ RUN git checkout ${BLOCKCHAIN_NODE_VERSION}
 
 RUN bazel build //cmd/beacon-chain:beacon-chain --config=release
 
-ENV PRYSM_BEACON_DATA=/root/.eth2
+ENV DATA_DIR=/root/.eth2
 
-RUN mkdir -p ${PRYSM_BEACON_DATA}
+RUN mkdir -p ${DATA_DIR}
 
 EXPOSE 8551 30303
 

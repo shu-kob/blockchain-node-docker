@@ -46,21 +46,21 @@ $ ./build.sh v0.20.3
 
 ```
 $ cd qtum
-$ ./build.sh v21.3
+$ ./build.sh v24.1
 ```
 
 #### How to build polkadot Docker Image
 
 ```
 $ cd polkadot
-$ ./build.sh v1.0.0
+$ ./build.sh v1.1.0
 ```
 
 #### How to build astar Docker Image
 
 ```
 $ cd astar
-$ ./build.sh v5.17.0
+$ ./build.sh v5.18.0
 ```
 
 #### How to build fantom Docker Image

@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+  op-geth:
+    image: op-geth:${IMAGE_TAG__GETH:-latest}
+    volumes:
+      - ~/.op/op-geth:/root/.op/op-geth
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "8545:8545"
+      - "30303:30303"

@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  bitcoind:
+    image: bitcoin-signet:${IMAGE_TAG__BITCOIN:-latest}
+    container_name: bitcoin-signet
+    volumes:
+      - ~/.bitcoin:/root/.bitcoin
+    restart: on-failure
+    stop_grace_period: 1m
+    ports:
+      - "38882:38882"
+      - "38883:38883"
